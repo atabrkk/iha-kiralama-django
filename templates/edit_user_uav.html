@@ -9,11 +9,13 @@
 
         <!-- RIGHT SIDE CONTENT -->
         <div class="col-md-9">
-            <h2>Edit UAV</h2>
+            <h2>IHA KİRALAMA</h2>
+            <p>Lütfen size uygun tarihleri seçin</p>
+            <p>(Girdiğiniz gün * IHA ücreti)</p>
             <form action="{% url 'edit_user_uav' rental.pk %}" method="POST" style="width: 500px">
                 {% csrf_token %}
                 {{ form | crispy }}
-                <button type="submit" class="btn btn-warning">Submit</button>
+                <button type="submit" class="btn btn-warning">Onayla</button>
             </form>
             <br>
         </div>
