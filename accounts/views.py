@@ -42,7 +42,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    response = redirect('home')  # Yönlendirilecek sayfa
-    response.delete_cookie('cookie_name')  # Silinecek çerezin adı
+    response = redirect('home')  
+    response.delete_cookie('cookie_name')  
     return response
 
