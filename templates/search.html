@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+     <!-- Featured Posts -->
+    <h3 class="text-warning" style="letter-spacing: 2px">Search Term - {{ keyword }}</h3>
+    <div class="row mb-2">
+        {% if uavs %}
+            {% for uav in uavs %}
+                <div class="col-md-6">
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <h3><a class="text-dark text-decoration-none" href="{% url 'get_uav' uav.slug %}">{{ uav.name }}</a></h3>
+                            <small class="mb-1 text-muted">{{ uav.created_at | timesince }} önce
+                                | {{ uav.brand }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>UAV BULUNAMADI</p>
+        {% endif %}
+    </div>
+{% endblock content %}

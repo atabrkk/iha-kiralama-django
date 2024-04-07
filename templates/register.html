@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <h3 class="text-center">KAYIT</h3>
+    <form action="{% url 'accounts:register' %}" method="POST" style="width: 500px; margin: auto;">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-warning" type="submit">KAYIT OL</button>
+        <span><a href="{% url 'accounts:login' %}">GİRİŞ</a></span>
+    </form>
+{% endblock content %}

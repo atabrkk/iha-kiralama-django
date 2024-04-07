@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <!-- LOAD THE SIDEBAR HERE -->
+        {% include 'sidebar.html' %}
+        <!-- LOAD THE SIDEBAR HERE END -->
+
+        <!-- RIGHT SIDE CONTENT -->
+        <div class="col-md-9">
+            <h2>Bütün IHA'lar</h2>
+
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Fiyat Aralığı Girin</h6>
+                </header>
+                <div class="filter-content">
+                    <div class="card-body">
+                        <form method="get" action="{% url 'uav_list_filtered' %}">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Minimum Fiyat:</label>
+                                    <input type="number" class="form-control" id="min_price"
+                                           placeholder="Minimum Fiyat Giriniz" name="min_price">
+                                </div>
+                                <div class="form-group col-md-6 text-right">
+                                    <label>Maksimum Fiyat:</label>
+                                    <input type="number" class="form-control" placeholder="Maksimum Fiyat Giriniz"
+                                           id="max_price" name="max_price">
+                                    <button class="btn btn-warning" type="submit">Filtrele</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- card-body.// -->
+                </div>
+            </article> <!-- card-group-item.// -->
+
+            {% if request.user.is_superuser %}
+                <a href="{% url 'add_uav' %}" class="btn btn-dark text-light float-end mb-2">Yeni IHA</a>
+            {% endif %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ad</th>
+                    <th>Marka</th>
+                    <th>Kategori</th>
+                    <th>Model</th>
+                    <th>Yıl</th>
+                    <th>Ağırlık(TON)</th>
+                    <th>Özellikler</th>
+                    <th>Fiyat</th>
+                    <th>Durum</th>
+                    <th>Kiralama</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for uav in uavs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{% url 'get_uav' uav.slug %}">{{ uav.name }}</a></td>
+                        <td>{{ uav.brand }}</td>
+                        <td>{{ uav.category }}</td>
+                        <td>{{ uav.model }}</td>
+                        <td>{{ uav.year | date:"Y" }}</td>
+                        <td>{{ uav.weight }}</td>
+                        <td>{{ uav.features | truncatewords:2 }}</td>
+                        <td>{{ uav.price }}</td>
+                        <td>{{ uav.status }}</td>
+                        <td>
+                            {% if request.user.is_superuser %}
+                                <a href="{% url 'edit_uav' uav.slug %}"><i class="fa fa-edit text-success"></i></a>
+                                &nbsp;
+                                <a href="{% url 'delete_uav' uav.slug %}"><i class="fa fa-trash text-danger"></i></a>
+                                &nbsp;
+                            {% endif %}
+                            <a href="{% url 'create_rental' uav.slug %}"><i
+                                    class="fa fa-cart-plus text-primary"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- RIGHT SIDE CONTENT END -->
+
+{% endblock content %}

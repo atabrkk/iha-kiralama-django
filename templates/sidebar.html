@@ -1,0 +1,14 @@
+<!-- LEFT SIDEBAR -->
+<div class="col-md-3">
+    <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
+        <a href="{% url 'all-uavs' %}"
+           class="nav-link text-dark {% if '/user_reservations/' == request.path %}bg-warning{% endif %}">Tüm
+            IHA'lar</a>
+        <a href="{% url 'user_reservations' %}"
+           class="nav-link text-dark {% if '/user_reservations/' in request.path %}bg-warning{% endif %}">Kiralamalarım</a>
+        <a href="{% url 'home' %}"
+           class="nav-link text-dark {% if '/categories/' in request.path %}bg-warning{% endif %}">Adreslerim</a>
+        <a href="{% url 'accounts:logout' %}" class="nav-link text-dark">Logout</a>
+    </div>
+</div>
+<!-- LEFT SIDEBAR END -->

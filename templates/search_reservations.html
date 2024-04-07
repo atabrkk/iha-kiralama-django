@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <!-- LOAD THE SIDEBAR HERE -->
+        {% include 'sidebar.html' %}
+        <!-- LOAD THE SIDEBAR HERE END -->
+
+        <!-- RIGHT SIDE CONTENT -->
+        <div class="col-md-9">
+            <h2>Hoşgeldin {{ user }} Kiraladığın UAV'lerin Listesi</h2>
+            <h3 class="text-warning" style="letter-spacing: 2px">Search Term - {{ keyword }}</h3>
+            {% if request.user.is_superuser %}
+            <a href="{% url 'add_uav' %}" class="btn btn-dark text-light float-end mb-2">Add New</a>
+            {% endif %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>UAV</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Total Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ur in reservations %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ ur.user }}</td>
+                        <td><a href="{% url 'get_uav' ur.uav.slug %}">{{ ur.uav }}</a></td>
+                        <td>{{ ur.start_date }}</td>
+                        <td>{{ ur.end_date }}</td>
+                        <td>{{ ur.total_price |floatformat:"2g" }}</td>
+                        <td>
+                                <a href="{% url 'edit_user_uav' ur.pk %}"><i class="fa fa-edit text-success"></i></a>
+                                &nbsp;
+                                <a href="{% url 'delete_user_uav' ur.pk %}"><i class="fa fa-trash text-danger"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- RIGHT SIDE CONTENT END -->
+{% endblock content %}

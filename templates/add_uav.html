@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ {% load crispy_forms_tags %}
+     <div class="row">
+        <!-- LOAD THE SIDEBAR HERE -->
+        <!-- LOAD THE SIDEBAR HERE END -->
+
+        <!-- RIGHT SIDE CONTENT -->
+        <div class="col-md-9">
+            <h2>Add New Post</h2>
+            <form action="{% url 'add_uav' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-warning">Submit</button>
+            </form>
+            <br>
+        </div>
+    </div>
+{% endblock content %}
